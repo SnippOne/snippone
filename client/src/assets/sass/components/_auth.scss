@@ -1,0 +1,61 @@
+.auth {
+	overflow: hidden;
+	.btn-group {
+		padding: 30px 0 20px;
+		.btn {
+			min-width: 225px;
+			margin: 10px;
+			font-weight: 500;
+			text-transform: none;
+			&.white {
+				color: black;
+			}
+			.icon {
+				display: inline-block;
+				vertical-align: text-bottom;
+				width: 20px;
+				height: 20px;
+				margin-right: 5px;
+				background-repeat: no-repeat;
+				background-size: contain;
+
+				&.github-icon {
+					background-image: url('../assets/images/github-icon.svg');
+				}
+
+				&.google-icon {
+					background-image: url('../assets/images/google-icon.svg');
+				}
+			}
+		}
+	}
+
+	.logined {
+		margin: 20px;
+		text-align: right;
+		.signout {
+			font-size: 14px;
+			font-weight: 500;
+			color: #c3292b;
+		}
+		.provider-name {
+			font-weight: 400;
+			// font-style: italic;
+			font-size: 14px;
+			opacity: 0.5;
+		}
+	}
+
+	.card-login {
+		margin: 25px 0;
+		.btn {
+			font-weight: 500;
+		}
+	}
+}
+
+.dropdown {
+	.dropdown-trigger {
+		min-width: 90px;
+	}
+}

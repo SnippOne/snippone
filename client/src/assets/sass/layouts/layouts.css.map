@@ -1,0 +1,11 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "layouts.scss",
+        "_default.scss",
+        "_home.scss"
+    ],
+    "names": [],
+    "file": "layouts.css"
+}

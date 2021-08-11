@@ -1,0 +1,11 @@
+version: "3"
+services:
+  vue-client:
+    container_name: vue-client-development
+    build:
+      dockerfile: Dockerfile.development
+
+  express-server:
+    container_name: express-server-development
+    build:
+      dockerfile: Dockerfile.development

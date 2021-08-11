@@ -1,0 +1,44 @@
+version: "3"
+
+volumes:
+  mongodb_data:
+
+services:
+  reverse-proxy:
+    build:
+      context: ./proxy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - vue-client
+      - express-server
+
+  vue-client:
+    build:
+      context: ./client
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - express-server
+
+  express-server:
+    build:
+      context: server
+    restart: on-failure
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo-database
+
+  mongo-database:
+    image: mongo
+    ports:
+      - 27027:27017
+    volumes:
+      - mongodb_data:/data/db

@@ -1,0 +1,10 @@
+{
+  "name": "@snippone/utils",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

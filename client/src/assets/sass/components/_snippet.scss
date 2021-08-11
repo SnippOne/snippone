@@ -1,0 +1,21 @@
+.snippet {
+	padding: 0;
+	box-sizing: border-box;
+	margin: 30px auto 0;
+	.drag-snippet {
+		border: 1px dashed #8b8b8b;
+		.file-selection {
+			padding: 15px 0;
+		}
+	}
+	.example {
+		&:hover {
+			.CodeMirror {
+				border: 1px solid #b5efac;
+				.CodeMirror-lines {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+.v-spinner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0000003d;
+	z-index: 100;
+	.v-bounce {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		right: 50%;
+		bottom: 50%;
+	}
+}

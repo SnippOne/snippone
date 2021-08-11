@@ -1,0 +1,12 @@
+.CodeMirror-scroll {
+	max-height: none;
+}
+.snippet {
+	.CodeMirror {
+		border: 1px solid #dbdbdb;
+		height: 100%;
+	}
+	.CodeMirror-scroll {
+		max-height: 70vh;
+	}
+}

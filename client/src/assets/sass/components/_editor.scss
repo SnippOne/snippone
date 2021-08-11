@@ -1,0 +1,12 @@
+.editor {
+	box-sizing: border-box;
+	&:not(:last-child){
+		margin-bottom: 30px;
+	}
+	.editor-content {
+		box-sizing: border-box;
+		padding: 30px;
+		border: 1px solid #8b8b8b;
+		background-color: #fff;
+	}
+}
