@@ -25,7 +25,7 @@ export class GetUser extends Events {
 			}
 
 			const user = new User({ id, name, photo, auth })
-			const created = await this.userRepository.create(user)
+			const created = await this.userRepository.createById(user)
 			const createdUser = new User(created)
 
 			this.emit(CREATED, { ...createdUser, providers })

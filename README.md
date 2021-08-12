@@ -9,3 +9,6 @@
 ### Application using Docker containers.
 
 #### To start, run the ".start" file (--dev use flag for development mode).
+
+
+#### Project to 80% ready.
