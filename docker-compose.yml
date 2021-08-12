@@ -26,7 +26,7 @@ services:
 
   express-server:
     build:
-      context: server
+      context: ./server
     restart: on-failure
     ports:
       - 3000:3000
@@ -35,6 +35,7 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - mongo-database
+      - strapi-admin
 
   mongo-database:
     image: mongo
