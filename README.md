@@ -6,6 +6,6 @@
 
 ![SnippOne Architecture](assert/architecture.png)
 
-### Application use a Docker containers.
+### Application using Docker containers.
 
-#### To start, run the ".start" file (--dev use flag for development mode).git
+#### To start, run the ".start" file (--dev use flag for development mode).
