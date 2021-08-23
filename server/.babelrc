@@ -7,5 +7,11 @@
 				"loose": true
 			}
 		]
+	],
+	"plugins": [
+		"syntax-dynamic-import",
+		"dynamic-import-node",
+		"plugin-transform-modules-commonjs",
+		"plugin-transform-runtime"
 	]
 }

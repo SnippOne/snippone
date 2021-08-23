@@ -27,14 +27,14 @@ export class Api {
 		return { data }
 	}
 
-	async createSnippet({ description, public, files }) {
-		const { data } = await this.request('POST /gists', { description, public, files })
+	async createSnippet(body) {
+		const { data } = await this.request('POST /gists', body)
 
 		return { data }
 	}
 
-	async updateSnippet(gist_id, { description, public, files }) {
-		const { data } = await this.request('PATCH /gists/{gist_id}', { gist_id, description, public, files })
+	async updateSnippet(gist_id, body) {
+		const { data } = await this.request('PATCH /gists/{gist_id}', { gist_id, ...body })
 
 		return { data }
 	}

@@ -6,7 +6,7 @@
 import { format } from 'timeago.js'
 
 export default {
-	name: "time-ago",
+	name: "timer",
 	props: {
 		datetime: String,
 		locale: String
@@ -16,7 +16,7 @@ export default {
 			date: null
 		}
 	},
-	mounted(){
+	mounted(){`	`
 		this.date = format(this.datetime, this.locale || 'en_US')
 	},
 }

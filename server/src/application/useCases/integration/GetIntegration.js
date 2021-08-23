@@ -34,12 +34,12 @@ export class GetIntegration extends Events {
 			const data = await this.integrationRepository.getById(id)
 
 			if (data) {
-				const { provider, credential } = data
+				const { provider, credentials } = data
 
 				/**
 				 * Init integration.
 				 */
-				const prepare = new Load(provider.id, credential)
+				const prepare = new Load(provider.id, credentials)
 				const integration = await prepare.load()
 
 				const { etag, getSnippets } = await integration.list()

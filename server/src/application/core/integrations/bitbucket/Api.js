@@ -10,11 +10,11 @@ import { integrations } from '../../../../infrastructure/configurations/integrat
 export class Api {
 
 	constructor({ username, password }) {
-		const credential = Buffer.from(`${username}:${password}`).toString('base64')
+		const credentials = Buffer.from(`${username}:${password}`).toString('base64')
 
 		const request = new RequestApi(integrations.bitbucket.apiUrl, {
 			headers: {
-				"Authorization": `Basic ${credential}`,
+				"Authorization": `Basic ${credentials}`,
 				"Content-Type": "application/json"
 			}
 		})

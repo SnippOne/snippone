@@ -35,11 +35,11 @@ export class GetIntegrationsAll extends Events {
 			const data = await this.integrationRepository.getAll()
 
 			if (data) {
-				const prepare = data.map(({ id, name, provider, credential }) => (async () => {
+				const prepare = data.map(({ id, name, provider, credentials }) => (async () => {
 					/**
 					 * Init integration.
 					 */
-					const prepare = new Load(provider.id, credential)
+					const prepare = new Load(provider.id, credentials)
 					const integration = await prepare.load()
 
 					const { getSnippets } = await integration.list()

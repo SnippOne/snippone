@@ -43,7 +43,7 @@ export class Express extends FrameworkInterface {
 		app.use(compression())
 		app.use(cors({
 			origin: config.clientUrl,
-			credential: true
+			credentials: true
 		}))
 
 		app.use(express.urlencoded({ extended: true }))

@@ -1,19 +1,15 @@
-export const modal = {
-	context: {
-		remove: {
-			title:		"Remove File",
-			content:	"Are you sure to remove this file?",
-			callback:	() => {},
-			confirmation: true
-		},
+import { getMethodPath } from './utils'
+
+export default Object.freeze({
+	context: (path, props) => getMethodPath(path, {
 		auth: {
-			title:		"Please signin or signup with your",
-			content:	`<div class="auth">
-							<a class="auth google">Google Account</a>
-							<a class="auth github">GitHub Account</a>
-						</div>`,
-			callback:	() => {},
-			confirmation: false
+			title:			"Please signin with your",
+			content:		`<span class="auth">
+								<a href="/api/auth/google" class="button auth google">Google Account</a>
+								<a href="/api/auth/github" class="button auth github">GitHub Account</a>
+							</span>`,
+			confirmation: 	false,
+			...props
 		}
-	}
-}
+	})
+})

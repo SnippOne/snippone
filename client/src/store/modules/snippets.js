@@ -8,11 +8,16 @@ export default {
 	// namespaced: true,
 	state: {
 		snippets: [],
-		open: false,
+		open: false
 	},
 	getters: {
 		getSnippets(state) {
 			return state.snippets
+		},
+		getSnippetById(state) {
+			return (id) => {
+				return state.snippets.find(snippet => snippet.id === id)
+			}
 		},
 		getSnippetOpen(state){
 			return state.open
@@ -26,7 +31,7 @@ export default {
 			state.snippets = state.snippets.concat(snippets)
 		},
 		removeSnippet(state, id){
-			state.snippets = state.snippets.filter(snippet => snippet.id !== id)
+			state.snippets.splice(state.snippets.findIndex(snippet => snippet.id === id), 1)
 		},
 		updateSnippet(state, data){
 			state.snippets = state.snippets.map((snippet) => {
@@ -62,18 +67,16 @@ export default {
 		},
 		fetchSnippets({ commit }){
 			const url = `${config.BASE_API_URL}/snippet`
-			axios.get(url, {
-				withCredentials: true,
-			})
-			.then(({ data }) => {
-				const { snippets } = data
-				commit("fetchSnippets", snippets)
-			})
-			.catch((err) => {
-				if (err) {
-					throw new Error(err)
-				}
-			})
+			axios.get(url)
+				.then(({ data }) => {
+					const { snippets } = data
+					commit("fetchSnippets", snippets)
+				})
+				.catch((err) => {
+					if (err) {
+						throw new Error(err)
+					}
+				})
 		},
 	}
 }

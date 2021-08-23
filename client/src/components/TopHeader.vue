@@ -5,19 +5,19 @@
 				<div class="level-left">
 					<div class="level-item">
 						<router-link to="/">
-							<img src="@/assets/images/logo-full-slogan-small-font.svg" class="logo" alt="SnippOne" />
+							<img src="@/assets/images/logo.svg" class="logo" title="SnippOne" alt="SnippOne" />
 						</router-link>
 					</div>
 				</div>
-				<div class="level-right">
-					<div class="level-item" v-if="$store.getters.getAuthStatus">
-						<router-link class="has-text-black is-uppercase" to="/">Snippets</router-link>
+				<div class="level-right menu">
+					<div class="level-item menu-item" v-if="$store.getters.getAuthStatus">
+						<router-link class="has-text-black" to="/">Snippets</router-link>
 					</div>
-					<div class="level-item" v-if="$store.getters.getAuthStatus">
-						<router-link  class="has-text-black is-uppercase" to="/integrations">Integrations</router-link>
+					<div class="level-item menu-item" v-if="$store.getters.getAuthStatus">
+						<router-link  class="has-text-black" to="/integrations">Integrations</router-link>
 					</div>
 					<div class="level-item">
-						<a class="button is-white" @click.prevent="addSnippetToggle">+ Add Snippet</a>
+						<a class="button is-add" @click.prevent="onAddSnippet">+ Add Snippet</a>
 					</div>
 					<div class="level-item">
 						<auth />
@@ -34,11 +34,10 @@ import Auth from "@/components/Auth.vue"
 export default {
 	name: "top-header",
 	methods: {
-		addSnippetToggle(){
+		onAddSnippet() {
 			if (this.$router.currentRoute.path !== '/') {
 				this.$router.push('/')
 			}
-			this.$store.dispatch("setSnippetOpen", true)
 		}
 	},
 	components: {

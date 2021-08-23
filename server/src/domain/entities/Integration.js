@@ -9,12 +9,12 @@ export class Integration {
 			return entities.map(entity => new Integration(entity))
 		}
 
-		const { id = null, name, owner, provider, credential, snippets = [] } = entities
+		const { id = null, name, username, provider, credentials, snippets = [] } = entities
 
 		this.id = id
 		this.name = name
-		this.owner = owner
-		this.credential = credential
+		this.username = username
+		this.credentials = credentials
 		this.provider = provider
 		this.snippets = snippets
 	}

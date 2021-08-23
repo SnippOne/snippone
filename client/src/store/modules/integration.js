@@ -13,9 +13,11 @@ export default {
 		getIntegrations(state) {
 			return state.integrations
 		},
-		getIntegration(state, index) {
-			return state.integrations[index]
-		},
+		getIntegrationById(state) {
+			return (id) => {
+				return state.integrations.find(integration => integration.id === id)
+			}
+		}
 	},
 	mutations: {
 		fetchIntegrations(state, integration) {
@@ -45,78 +47,67 @@ export default {
 		},
 	},
 	actions: {
+		addIntegration({ commit }, data){
+			commit("addIntegration", data)
+		},
+		addIntegrations({ commit }, data){
+			commit("addIntegrations", data)
+		},
 		fetchIntegrations({ commit }){
-			const url = `${config.BASE_API_URL}/integration`
-			axios.get(url, {
-				withCredentials: true,
-			})
-			.then(({ data }) => {
-				const { integrations } = data
-				commit("fetchIntegrations", integrations)
-			})
-			.catch((err) => {
-				if (err) {
-					throw new Error(err)
-				}
-			})
+			const url = `${config.BASE_API_URL}/integration/all`
+
+			axios.get(url)
+				.then(({ data }) => {
+					const { integrations } = data
+					commit("fetchIntegrations", integrations)
+				})
+				.catch((err) => {
+					if (err) {
+						throw new Error(err)
+					}
+				})
 		},
 		checkIntegration({ commit }, integration){
 			const url = `${config.BASE_API_URL}/integration/check`
-			axios.get(url, {
-				withCredentials: true,
-				params: {
-					data: {
-						...integration
+
+			axios.get(url, { data: integration })
+				.then(() => commit("checkIntegration", {  ...integration, connection: true }))
+				.catch(error => {
+					if (error) {
+						commit("checkIntegration", { ...integration, connection: false })
 					}
-				}
-			}).then(() => {
-				commit("checkIntegration", {  ...integration, connection: true })
-			}).catch(error => {
-				if (error) {
-					commit("checkIntegration", { ...integration, connection: false })
-				}
-			})
+				})
 		},
 		saveIntegration({ commit }, integration){
 			const url = `${config.BASE_API_URL}/integration`
-			axios.post(url, {
-				...integration
-			}, {
-				withCredentials: true,
-			}).then((response) => {
-				commit("fetchIntegration", integration)
-			}).catch((error) => {
-			})
+			const { id, name, credentials, provider } = integration
+
+			axios.post(url, { id, name, credentials, provider: provider.id })
+				.then(() => commit("fetchIntegration", integration))
+				.catch(() => {})
 		},
 		updateIntegration({ commit }, integration){
 			const url = `${config.BASE_API_URL}/integration`
-			axios.put(url, {
-				...integration
-			}, {
-				withCredentials: true,
-			}).then((response) => {
-				commit("fetchIntegration", integration)
-			}).catch((error) => {
-			})
+			const { id, name, credentials, provider } = integration
+
+			axios.put(url, { id, name, credentials, provider: provider.id })
+				.then(() => commit("fetchIntegration", integration))
+				.catch(() => {})
 		},
-		addIntegration({commit}, data){
-			commit("addIntegration", data)
-		},
-		addIntegrations({commit}, data){
-			commit("addIntegrations", data)
-		},
-		removeIntegration({ commit }, id){
+		removeIntegration({ commit }, data){
+			const { id, creating } = data
+
+			if (creating) {
+				return commit("removeIntegration", id)
+			}
+
 			const url = `${config.BASE_API_URL}/integration`
 			axios.delete(url, {
-				withCredentials: true,
-				params: {
-					id
-				}
-			}).then((response) => {
-				commit("removeIntegration", id)
-			}).catch((error) => {
+				withCredentials: 	true,
+				data: 				{ id }
 			})
-
-		},
+			.then(() => commit("removeIntegration", id))
+			.catch(() => {})
+		}
 	}
 }

@@ -50,11 +50,11 @@ export class IntegrationRepository extends IntegrationRepositoryInterface {
 		return data
 	}
 
-	async createById({ id, name, username, credential, provider, etag }, snippets = []) {
+	async createById({ id, name, username, credentials, provider, etag }, snippets = []) {
 
 		const { _id } = await Provider.findOne({ id: provider })
 
-		await Integration.create({ id, name, username, credential, etag, snippets, provider: _id })
+		await Integration.create({ id, name, username, credentials, etag, snippets, provider: _id })
 
 		const data = await Integration.findOne({ id })
 			.populate({ path: 'provider', select: '-__v' })
@@ -64,11 +64,11 @@ export class IntegrationRepository extends IntegrationRepositoryInterface {
 		return data
 	}
 
-	async updateById({ id, name, username, credential, etag, provider }, snippets) {
+	async updateById({ id, name, username, credentials, etag, provider }, snippets) {
 
 		const { _id } = await Provider.findOne({ id: provider })
 
-		const data = await Integration.findOneAndUpdate({ id }, { name, username, credential, etag, snippets, provider: _id }, { upsert:true, new: true })
+		const data = await Integration.findOneAndUpdate({ id }, { name, username, credentials, etag, snippets, provider: _id }, { upsert:true, new: true })
 
 		return data
 	}

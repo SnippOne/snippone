@@ -21,12 +21,9 @@ const schema = new Schema({
 	},
 	files: {
 		type: Array
-	}
-},
-{
-	timestamps: {
-		createdAt: 'created',
-		updatedAt: 'modified',
+	},
+	created: {
+		type: String
 	}
 })
 

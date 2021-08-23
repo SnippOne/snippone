@@ -29,7 +29,7 @@ export default new Router({
 			component: () => import("@/pages/Snippet.vue")
 		},
 		{
-			path: "/files/:id/raw",
+			path: "/files/:name/raw",
 			name: "raw-page",
 			component: () => import("@/pages/raw/File.vue"),
 			meta: {

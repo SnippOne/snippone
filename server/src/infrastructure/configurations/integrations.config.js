@@ -3,7 +3,7 @@ export const integrations = Object.freeze({
 	github: {
 		name: "GitHub Gists",
 		apiUrl: "https://api.github.com",
-		credential: [
+		credentials: [
 			"token"
 		],
 		mapping: {
@@ -41,7 +41,7 @@ export const integrations = Object.freeze({
 	gitlab: {
 		name: "GitLab Snippets",
 		apiUrl: "https://gitlab.com/api/v4",
-		credential: [
+		credentials: [
 			"token"
 		],
 		mapping: {
@@ -90,7 +90,7 @@ export const integrations = Object.freeze({
 	bitbucket: {
 		name: "Bitbucket Snippets",
 		apiUrl: "https://api.bitbucket.org/2.0",
-		credential: [
+		credentials: [
 			"username",
 			"password"
 		],
@@ -112,7 +112,7 @@ export const integrations = Object.freeze({
 					}
 				]
 			},
-			to: {	
+			to: {
 				title:	"{title}",
 				is_private:	{
 					type:	"Boolean",

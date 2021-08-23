@@ -1,17 +1,17 @@
 <template>
 	<div id="dropdown-auth" class="dropdown is-right" :class="{'is-active': dropdown}">
 		<div class="dropdown-trigger">
-			<button class="button is-light" :class="{'is-loading': authPreloader}" @click="dropdown = !dropdown" aria-haspopup="true" aria-controls="dropdown-auth">
+			<button class="button is-text" :class="{'is-loading': authPreloader}" @click="dropdown = !dropdown" aria-haspopup="true" aria-controls="dropdown-auth">
 				<span class="media">
 					<span class="media-left" v-if="authStatus">
 						<span class="image is-32x32">
-							<img class="is-rounded" :src="authUser.photo">
+							<img class="is-rounded" :src="authData.photo">
 						</span>
 					</span>
 					<span class="media-content">
 						<span v-if="!authStatus">Sign In</span>
 						<span class="icon is-small">
-							<i class="fas fa-angle-down" aria-hidden="true"></i>
+							<i class="icon-drop-down" aria-hidden="true"></i>
 						</span>
 					</span>
 				</span>
@@ -20,7 +20,7 @@
 		<div class="dropdown-menu" role="menu" v-if="!authPreloader">
 			<div class="dropdown-content" v-if="authStatus">
 				<div class="dropdown-item">
-					<span class="has-text-grey is-small">You are authorized by {{authUser.auth}} provider.</span>
+					<span class="has-text-grey is-small">You are authorized by {{authData.auth}} provider.</span>
 				</div>
 				<a href="/" @click.prevent="signOut" class="button is-danger is-inverted dropdown-item">Sign Out</a>
 			</div>
@@ -42,14 +42,11 @@
 </template>
 
 <script>
-import hash from "crypto-random-string"
-
 export default {
 	name: "auth",
 	data(){
 		return {
-			dropdown: false,
-			user: null,
+			dropdown: false
 		}
 	},
 	mounted(){
@@ -67,8 +64,8 @@ export default {
 		authPreloader(){
 			return this.$store.getters.getAuthPreloader
 		},
-		authUser(){
-			return this.$store.getters.getAuthUser
+		authData(){
+			return this.$store.getters.getAuthData
 		}
 	},
 	methods: {

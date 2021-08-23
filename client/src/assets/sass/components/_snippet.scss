@@ -8,14 +8,4 @@
 			padding: 15px 0;
 		}
 	}
-	.example {
-		&:hover {
-			.CodeMirror {
-				border: 1px solid #b5efac;
-				.CodeMirror-lines {
-					cursor: pointer;
-				}
-			}
-		}
-	}
 }

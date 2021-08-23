@@ -2,6 +2,17 @@
 	background: $global_background-color;
 	.logo {
 		height: 43px;
-		margin: 20px;
+		margin: 35px 0;
+	}
+
+	.menu {
+		.menu-item {
+			a {
+				margin-right: 2em;
+				&.router-link-exact-active {
+					color: #f05656 !important;
+				}
+			}
+		}
 	}
 }

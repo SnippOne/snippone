@@ -18,7 +18,6 @@ const env = {
 	PORT: 							null,
 	DATABASE_NAME: 					null,
 	DATABASE_URL: 					null,
-	CACHE_URL: 						null,
 	DATABASE_COLLECTION_SESSION: 	null,
 	CLIENT_URL: 					null,
 	GOOGLE_CLIENT_ID: 				null,
@@ -33,6 +32,8 @@ const env = {
 	TOKEN_SECRET: 					null
 }
 
+
+// Custom override
 for (const variable of Object.keys(env)) {
 	if (typeof process.env[variable] === 'undefined') {
 		throw new Error(`Environment variable ${variable} is not defined.`)
@@ -56,11 +57,6 @@ const config = {
 	 * Setting the database URL.
 	 */
 	databaseUrl: env.DATABASE_URL,
-
-	/**
-	 * Setting the database URL.
-	 */
-	cacheUrl: env.CACHE_URL,
 
 	/**
 	 * Setting the database collection session.

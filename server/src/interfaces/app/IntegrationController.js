@@ -19,7 +19,7 @@ export const IntegrationController = (dependencies) => ({
 		const { passport } = req.session
 		const { profile } = passport.user
 
-		const { id, name, provider, credential } = req.body
+		const { id, name, provider, credentials } = req.body
 
 		const integration = new CreateIntegration(dependencies)
 
@@ -29,7 +29,7 @@ export const IntegrationController = (dependencies) => ({
 		integration.on(SUCCESS, results => res.status(status.OK).json(results))
 		integration.on(ERROR, next)
 
-		await integration.execute({ id, name, credential, provider }, profile)
+		await integration.execute({ id, name, credentials, provider }, profile)
 	},
 
 	async getIntegration(req, res, next) {
@@ -65,7 +65,7 @@ export const IntegrationController = (dependencies) => ({
 	async updateIntegration(req, res, next) {
 		debug(req.method, req.originalUrl)
 
-		const { id, name, username, provider, credential, snippets } = req.body
+		const { id, name, username, provider, credentials, snippets } = req.body
 
 		const integration = new UpdateIntegration(dependencies)
 
@@ -74,7 +74,7 @@ export const IntegrationController = (dependencies) => ({
 		integration.on(SUCCESS, results => res.status(status.OK).json(results))
 		integration.on(ERROR, next)
 
-		await integration.execute({ id, name, username, provider, credential, snippets })
+		await integration.execute({ id, name, username, provider, credentials, snippets })
 	},
 
 	async deleteIntegration(req, res, next) {
@@ -84,6 +84,7 @@ export const IntegrationController = (dependencies) => ({
 		const { profile } = passport.user
 
 		const { id } = req.body
+        console.log("🚀 ~ file: IntegrationController.js ~ line 87 ~ deleteIntegration ~ req.body", req.body)
 
 		const integration = new DeleteIntegration(dependencies)
 

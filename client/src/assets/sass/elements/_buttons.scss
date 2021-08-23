@@ -1,0 +1,21 @@
+.button {
+	&.is-add {
+		background-color: $buttons_primary_background-color;
+		border-color: $buttons_primary_background-color;
+		color: $buttons_primary_color;
+		font-weight: 500;
+		&:active,
+		&:hover {
+			background-color: lighten($buttons_primary_background-color, 10%);
+			border-color: lighten($buttons_primary_background-color, 10%);
+		}
+	}
+
+	&.is-back-link {
+		margin: 1em 6em;
+		position: absolute;
+		z-index: 1;
+	}
+}
+
+

@@ -1,5 +1,7 @@
 # SnippOne Client
 
-![SnippOne Server Layers](../assert/pages/home.png)
-![SnippOne Server Layers](../assert/pages/snippets.png)
-![SnippOne Server Layers](../assert/pages/integrations.png)
+![SnippOne Home Page](../assert/pages/home.png)
+![SnippOne Snippets Page](../assert/pages/snippets.png)
+![SnippOne Integrations Page](../assert/pages/integrations.png)
+
+![SnippOne Client](../assert/client.png)

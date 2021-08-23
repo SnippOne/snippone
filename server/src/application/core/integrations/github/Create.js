@@ -31,14 +31,14 @@ export class Create extends IntegrationInterface {
 		return { snippet }
 	}
 
-	async create({ description, public, files }) {
-		const { data } = await this.api.createSnippet({ description, public, files })
+	async create(body) {
+		const { data } = await this.api.createSnippet(body)
 
 		return { data }
 	}
 
-	async update(id, { description, files }) {
-		const { data } = await this.api.updateSnippet(id, { description, files })
+	async update(id, body) {
+		const { data } = await this.api.updateSnippet(id, body)
 
 		return { data }
 	}

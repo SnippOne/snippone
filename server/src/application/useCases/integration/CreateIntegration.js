@@ -25,11 +25,11 @@ class CreateIntegration extends Events {
 	/**
 	 * Create an integration.
 	 *
-	 * @param {*} { id, name, provider, credential }
+	 * @param {*} { id, name, provider, credentials }
 	 * @param {*} user
 	 * @returns {*}
 	 */
-	async execute({ id, name, provider, credential }, user = null){
+	async execute({ id, name, provider, credentials }, user = null) {
 		const { CREATED, SUCCESS, ERROR } = this.types
 
 		try {
@@ -47,7 +47,7 @@ class CreateIntegration extends Events {
 			/**
 			 * Init integration.
 			 */
-			const prepare = new Load(provider, credential)
+			const prepare = new Load(provider, credentials)
 			const integration = await prepare.load()
 
 			const { username } = await integration.user()
@@ -63,12 +63,12 @@ class CreateIntegration extends Events {
 			 * Save to database.
 			 */
 			const { insertedIds } = await this.snippetRepository.createMany(mapped)
-			const created = await this.integrationRepository.createById({ id, name, username, credential, provider, etag }, insertedIds)
+			const created = await this.integrationRepository.createById({ id, name, username, credentials, provider, etag }, insertedIds)
 
 			/**
 			 * Add integration to user.
 			 */
-			if(user){
+			if (user) {
 				await this.userRepository.addIntegrationId(user, created)
 			}
 

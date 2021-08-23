@@ -1,0 +1,20 @@
+.modal {
+	.modal-card {
+		.delete {
+			right: 1rem;
+			top: 1rem;
+			position: absolute;
+			z-index: 1;
+		}
+
+		.card-content {
+			text-align: center;
+			padding: 5rem 2rem;
+
+			.buttons {
+				justify-content: center;
+			}
+
+		}
+	}
+}

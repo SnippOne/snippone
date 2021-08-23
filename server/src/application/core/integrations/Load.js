@@ -9,9 +9,9 @@ const __dirname = path.dirname(__filename)
  * @class Load
  */
 class Load {
-	constructor(provider, credential) {
+	constructor(provider, credentials) {
 		this.provider = provider
-		this.credential = credential
+		this.credentials = credentials
 	}
 
 	/**
@@ -23,7 +23,7 @@ class Load {
 		try {
 			const { Create } = await import(path.resolve( __dirname, './', this.provider, 'Create.js'))
 
-			return new Create(this.credential)
+			return new Create(this.credentials)
 
 		} catch (error) {
 			if(error.code === 'ERR_MODULE_NOT_FOUND') {

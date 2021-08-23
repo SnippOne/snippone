@@ -27,18 +27,22 @@ class RequestApi {
 	 */
 	async request(url = String(), props = null, { body: requestBody, headers: requestHeaders } = { body: null, headers: null }) {
 
-		const isFormData = requestHeaders['Content-Type'].indexOf('multipart/form-data') !== -1
-
 		const options = {
 			...this.options,
 			headers: {
 				...this.options.headers,
 				...requestHeaders
-			},
-			body: isFormData ? requestBody : JSON.stringify(requestBody)
+			}
 		}
 
+		if (requestBody) {
+			options.body = (requestHeaders['Content-Type'].indexOf('multipart/form-data') !== -1)
+				? requestBody : JSON.stringify(requestBody)
+		}
+
+
 		const { method, path } = this.format(url, props)
+
 		const response = await fetch(path, { method, ...options })
 
 		const { ok, statusText, status, headers } = response

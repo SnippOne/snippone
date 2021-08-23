@@ -11,7 +11,7 @@ export const Provider = mongoose.model("Provider", new Schema({
 		type: String,
 		required: true
 	},
-	credential: [
+	credentials: [
 		{
 			type: String,
 			enum: ['token', 'username', 'password']

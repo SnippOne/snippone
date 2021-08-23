@@ -28,11 +28,6 @@ import Snippet from "@/components/Snippet.vue"
 
 export default {
 	name: "home",
-	methods: {
-		addSnippetToggle(){
-			this.$store.dispatch("setSnippetOpen", true)
-		},
-	},
 	components: {
 		Snippet
 	}

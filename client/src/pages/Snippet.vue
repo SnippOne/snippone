@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
-	<div>
-		<router-link to="/">All Snippets List</router-link>
-		<snippet :source="snippet"/>
+	<div class="container">
+		<router-link to="/" class="button is-light is-back-link">
+			<span>&#129044; Back to Snippets</span>
+		</router-link>
+		<snippet />
 	</div>
-  </div>
 </template>
 
 <script>
@@ -12,17 +12,8 @@ import Snippet from "@/components/Snippet.vue"
 
 export default {
 	name: "snippet-page",
-	data(){
-		return {
-			snippet: null,
-		}
-	},
-	created(){
-		this.snippet = this.$store.getters.getSnippets
-			.find(snippet => snippet.id === this.$route.params.id)
-	},
 	components: {
-		Snippet,
+		Snippet
 	}
 }
 </script>

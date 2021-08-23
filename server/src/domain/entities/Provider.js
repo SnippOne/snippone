@@ -3,10 +3,10 @@
  */
 
 export class Provider {
-	constructor({ id = null, name, credential, url }){
+	constructor({ id = null, name, credentials, url }){
 		this.id = id
 		this.name = name
-		this.credential = credential
+		this.credentials = credentials
 		this.url = url
 	}
 }

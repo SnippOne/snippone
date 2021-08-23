@@ -12,7 +12,7 @@ export const integration = {
 			type:		'string',
 			minLength:	3,
 		},
-		credential: {
+		credentials: {
 			type: 'object',
 			items: {
 				type:	'string',
@@ -30,6 +30,6 @@ export const integration = {
 			type: 'array'
 		}
 	},
-	required:				[ 'id', 'name', 'provider', 'credential'],
+	required:				[ 'id', 'name', 'provider', 'credentials'],
 	additionalProperties:	true,
 }

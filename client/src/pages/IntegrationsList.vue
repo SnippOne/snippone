@@ -1,34 +1,30 @@
 <template>
 	<div class="container">
-		<h1>Your Integrations List</h1>
-		<integration v-for="integration in $store.getters.getIntegrations" :source="integration" :key="integration.id"/>
-		<div class="column has-text-centered">
-			<a class="button is-medium" @click.prevent="addIntegration">+ Add Integration Service</a>
+		<div class="integrations-list">
+			<h1>Integrations</h1>
+			<integration v-for="integration in $store.getters.getIntegrations" :data="integration" :key="integration.id" />
+			<div class="column has-text-centered">
+				<a class="button is-medium" @click.prevent="addIntegration">
+					<span>&#43; Add Integration Service</span>
+				</a>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-import hash from "crypto-random-string"
-import Integration from "@/components/Integration.vue"
+// Config
+import config from "@/config/integration"
 
-import { integration } from "@/config/integration"
+// Components
+import Integration from "@/components/Integration.vue"
 
 export default {
 	name: "integrations",
-	mounted(){
-		this.$store.dispatch("addIntegrations", this.$store.getters.getAuthUser.integrations)
-		if (!this.$store.getters.getIntegrations.length) {
-			this.addIntegration();
-		}
-	},
 	methods: {
 		addIntegration(){
-			this.$store.dispatch("addIntegration", {
-				...integration.context.add,
-				id: hash({length: 16, type: "url-safe"})
-			})
-		},
+			this.$store.dispatch("addIntegration", config.context('add'))
+		}
 	},
 	components: {
 		Integration

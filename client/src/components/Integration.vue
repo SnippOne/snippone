@@ -1,22 +1,26 @@
 <template>
-	<div class="snippet">
-		<div class="top">
-			<a href="#" class="is-link" @click.prevent="open = !open">Toggle</a>
-			<div class="columns">
-				<div class="column">
-					<h2>{{ payload.name }}</h2>
-					<div class="connection">
-						<span v-if="payload.connection" class="has-background-success">Connected</span>
-						<span v-else class="has-background-light">Disconnected</span>
+	<div class="integration">
+		<div class="columns">
+			<div class="column">
+				<a href="/integrations" @click.prevent="open = !open" class="title is-6">
+					<div class="top-panel">
+						<div class="head">
+							<span class="name">{{ payload.name }}</span>
+							<!-- <span class="status">
+								<span class="allowed" v-if="payload.connection">Connected</span>
+								<span class="disallowed" v-else>Disconnected</span>
+							</span> -->
+						</div>
+						<div class="actions">
+							<button class="button is-small is-ghost">
+									<i :class="{ 'icon-close': open, 'icon-down': !open }"></i>
+							</button>
+						</div>
 					</div>
-					<div v-if="payload.provider" :class="payload.provider.id">
-						{{ payload.provider.name }}
-					</div>
-				</div>
+				</a>
 			</div>
-			<div class="divider"></div>
 		</div>
-		<div class="content" v-if="open">
+		<div class="info-panel" v-if="open">
 			<form name="integration" method="post" @submit.prevent>
 				<div class="columns is-vcentered">
 					<div class="column is-9">
@@ -25,7 +29,7 @@
 					<div class="column">
 						<div class="control">
 							<div class="select is-fullwidth">
-								<v-select v-model="payload.provider" placeholder="Please select an option" label="name" :value="payload.provider" :options="$store.getters.getAuthUser.providers"></v-select>
+								<v-select v-model="payload.provider" placeholder="Please select an option" label="name" :value="payload.provider" :options="$store.getters.getAuthData.providers"></v-select>
 							</div>
 						</div>
 						<div class="error has-text-danger" v-if="!$v.payload.provider.required">Field is required</div>
@@ -37,15 +41,15 @@
 						<div class="field">
 							<label class="label">Name Integration</label>
 							<div class="control">
-								<input v-model="payload.name" name="public" type="text" class="input" placeholder="Please enter name of the integration" />
+								<input v-model="payload.name" name="name" type="text" class="input" placeholder="Please enter name of the integration" />
 							</div>
 						</div>
 
 						<div v-if="payload.provider">
 							<div class="field" v-for="field in payload.provider.credentials" :key="field">
-								<label class="label">{{ credentialsList[field].label }}</label>
+								<label class="label">{{ config.credentials[field].label }}</label>
 								<div class="control">
-									<input v-model="payload.credentials[field]" name="private" :type="credentialsList[field].type" class="input" placeholder="Please enter private key" />
+									<input v-model="payload.credentials[field]" :name="field" :type="config.credentials[field].type" class="input" :placeholder="config.credentials[field].label" />
 								</div>
 							</div>
 						</div>
@@ -58,28 +62,28 @@
 						<div class="level">
 							<div class="level-left">
 								<div class="level-item">
-									<a href="#" class="button" @click.prevent="removeIntegration">
+									<a href="#" class="button is-text" @click.prevent="removeIntegration">
 										<span>Remove</span>
 									</a>
 								</div>
 							</div>
 							<div class="level-right">
-								<div class="level-item">
+								<!-- <div class="level-item">
 									<div class="control">
-										<a href="#" class="is-link" @click.prevent="checkIntegration">
+										<a href="#" class="is-link is-dark" @click.prevent="checkIntegration">
 											<span>Check connection</span>
 										</a>
 									</div>
-								</div>
+								</div> -->
 
-								<div v-if="payload.meta && payload.meta.create" class="level-item">
+								<div v-if="payload.creating" class="level-item">
 									<div class="control ml-1">
-										<button class="button is-success" @click.prevent="saveIntegration" type="submit" name="create">Create</button>
+										<button class="button is-dark" @click.prevent="saveIntegration" type="submit" name="create">Create</button>
 									</div>
 								</div>
 								<div v-else class="level-item">
 									<div class="control ml-1">
-										<button class="button is-link"  @click.prevent="updateIntegration" type="submit" name="update">Update</button>
+										<button class="button is-dark"  @click.prevent="updateIntegration" type="submit" name="update">Update</button>
 									</div>
 								</div>
 
@@ -93,57 +97,58 @@
 </template>
 
 <script>
-import hash from "crypto-random-string"
+// Core
+
 import { required, minLength } from 'vuelidate/lib/validators'
-import { integration } from "@/config/integration"
+
+// Config
+import config from "@/config/integration"
 
 export default {
 	name: "integration",
 	props: {
-		source: Object,
+		data: Object
 	},
 	mounted(){
 		// this.$nextTick(() => this.$el.scrollIntoView())
 	},
-	data: () => {
+	data() {
 		return {
 			open: true,
-			credentialsList: integration.credentials,
+			config
 		}
 	},
 	computed: {
-		payload: {
-			get(){
-				return this.source
-			}
+		payload() {
+			return this.data
 		}
 	},
 	validations: {
 		payload: {
 			provider: {
 				required
-			},
+			}
 		}
 	},
 	methods: {
 		checkIntegration(){
-			this.$store.dispatch("checkIntegration", this.payload)
-		},
-		removeIntegration(){
-			this.$store.dispatch("removeIntegration", this.payload.id)
+			this.$store.dispatch("checkIntegration", 	this.payload)
 		},
 		saveIntegration(){
-			this.$store.dispatch("saveIntegration", {
-				...this.payload,
-				provider: this.payload.provider.id
-			})
+			this.$store.dispatch("saveIntegration", 	this.payload)
 		},
 		updateIntegration(){
-			this.$store.dispatch("updateIntegration", {
-				...this.payload,
-				provider: this.payload.provider.id
+			this.$store.dispatch("updateIntegration", 	this.payload)
+		},
+		removeIntegration() {
+			console.log(config.context('add'))
+			this.$root.$emit("openModal", config.context('modal.remove'), () => {
+				this.$store.dispatch("removeIntegration", this.payload)
+				this.$root.$emit("appendMessage", {
+					message: `The integration ${ this.payload.name ? `with the name "${this.payload.name}"` : '' } was deleted.`
+				})
 			})
 		}
-	},
+	}
 }
 </script>

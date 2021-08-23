@@ -1,0 +1,10 @@
+.select {
+	&:not(.is-multiple):not(.is-loading) {
+		&::after {
+			border: none;
+		}
+	}
+	.vs__dropdown-menu {
+		margin: 0;
+	}
+}

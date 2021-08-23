@@ -1,8 +1,105 @@
 .snippets-list {
+	margin-top: 20px;
+
 	.snippet {
+		background-color: #f8f8f8;
+		margin-bottom: 2em;
 		border-radius: 5px;
+		padding: 30px;
 		.code {
 			background: #fff;
+		}
+		.title {
+			font-weight: 500;
+		}
+		.top-panel {
+			width: 100%;
+			display: flex;
+			justify-content: space-between;
+			.head {
+				margin-bottom: 5px;
+			}
+			.actions {
+				min-width: 120px;
+				.button {
+					padding: 0 8px;
+					&:hover,
+					&:active {
+						opacity: 0.8;
+					}
+				}
+			}
+		}
+		.info-panel {
+			margin-bottom: 10px;
+			.item {
+				font-size: 12px;
+				margin-right: 5px;
+				&:not(:last-child) {
+					&::after {
+						content: '\00007C';
+						margin-left: 5px;
+					}
+				}
+				.icon-profile {
+					display: inline-block;
+					vertical-align: text-bottom;
+					margin-right: 5px;
+				}
+			}
+		}
+
+		.files {
+			.name,
+			.mode {
+				display: inline-block;
+				margin-bottom: 5px;
+				font-size: 1em;
+			}
+			.name {
+				font-weight: 500;
+			}
+			.mode {
+				&::before {
+					content: '\00007C';
+					margin: 0 5px;
+				}
+			}
+			.image {
+				display: flex;
+				justify-content: center;
+				border: 1px solid #ccc;
+    			background-color: #fff;
+				padding: 20px;
+    			box-sizing: border-box;
+				height: 200px;
+				.unavailable {
+					align-self: center;
+					color: #ccc;
+					font-size: 1em;
+				}
+				img {
+					height: auto;
+					width: auto;
+					max-width: 100%;
+					max-height: 100%;
+					margin: 0 auto;
+				}
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+			}
+			.actions {
+				position: absolute;
+				top: 40px;
+				right: 10px;
+				z-index: 10;
+				.button {
+					font-size: 14px;
+					border-radius: 2em;
+				}
+			}
 		}
 	}
 }

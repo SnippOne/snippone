@@ -1,52 +1,57 @@
 export default {
-    // namespaced: true,
-    state: {
-		files: [],
-    },
-    getters: {
-        getFiles(state) {
-            return state.files
+	// namespaced: true,
+	state: {
+		files: []
+	},
+	getters: {
+		getFiles(state) {
+			return state.files
 		},
-    },
-    mutations: {
-        addFile(state, file) {
-            state.files.push(file)
+		getFileByName(state) {
+			return (name) => {
+				return state.files.find(file => file.filename === name)
+			}
+		}
+	},
+	mutations: {
+		addFile(state, file) {
+			state.files.push(file)
 		},
 		addFiles(state, files) {
-            state.files = state.files.concat(files)
+			state.files = state.files.concat(files)
 		},
-		removeFile(state, id){
+		removeFile(state, id) {
 			state.files = state.files.filter(file => file.id !== id)
 		},
-		updateFile(state, data){
+		updateFile(state, data) {
 			state.files = state.files.map((file) => {
-				return file.id === data.id ? {...file, ...data} : file
+				return file.id === data.id ? { ...file, ...data } : file
 			})
 		},
-		setFiles(state, files){
+		setFiles(state, files) {
 			state.files = files
 		},
-		resetFiles(state){
+		resetFiles(state) {
 			state.files = []
 		},
-    },
-    actions: {
-		addFile({commit}, data){
+	},
+	actions: {
+		addFile({ commit }, data) {
 			commit("addFile", data)
 		},
-		addFiles({commit}, data){
+		addFiles({ commit }, data) {
 			commit("addFiles", data)
 		},
-		removeFile({commit}, id){
+		removeFile({ commit }, id) {
 			commit("removeFile", id)
 		},
-		updateFile({commit}, data){
+		updateFile({ commit }, data) {
 			commit("updateFile", data)
 		},
-		setFiles({commit}, data){
+		setFiles({ commit }, data) {
 			commit("setFiles", data)
 		},
-		resetFiles({commit}){
+		resetFiles({ commit }) {
 			commit("resetFiles")
 		},
 	}

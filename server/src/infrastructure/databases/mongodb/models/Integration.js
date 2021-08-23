@@ -21,7 +21,7 @@ const schema = new Schema({
 		type: String,
 		required: true
 	},
-	credential: {
+	credentials: {
 		token: String,
 		username: String,
 		password: String,
@@ -48,11 +48,11 @@ const schema = new Schema({
 })
 
 schema.index({ id: 1 }, { unique: true })
-schema.index({ credential: 1 }, { unique: true })
+schema.index({ credentials: 1 }, { unique: true })
 
 schema.plugin(unique, {
 	id: 		'This integration with ID has already existed.',
-	credential:	'This credential has already been used.'
+	credentials:	'This credentials has already been used.'
 })
 
 export const Integration = mongoose.model("Integration", schema)

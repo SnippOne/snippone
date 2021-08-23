@@ -2,6 +2,7 @@
 	<main id="app">
 		<component :is="layout"/>
 		<modal />
+		<message-subscriber/>
 	</main>
 </template>
 
@@ -12,6 +13,7 @@ import "vue-select/dist/vue-select.css"
 
 import VueScrollTo from 'vue-scrollto'
 import Vuelidate from 'vuelidate'
+import VueClipboard from 'vue-clipboard2'
 import BounceLoader from 'vue-spinner/src/BounceLoader'
 
 import defaultLayout from "@/layouts/default.vue"
@@ -21,8 +23,12 @@ import rawLayout from "@/layouts/raw.vue"
 import Editor from "@/components/Editor.vue"
 import Modal from "@/components/modals/Modal.vue"
 
+import MessageSubscriber from "@/components/messages/MessageSubscriber.vue"
+
 Vue.use(VueScrollTo)
 Vue.use(Vuelidate)
+Vue.use(VueClipboard)
+
 Vue.component("bounce-loader", BounceLoader)
 
 Vue.component("default-layout", defaultLayout)
@@ -32,27 +38,18 @@ Vue.component("raw-layout", rawLayout)
 Vue.component("v-select", VueSelect)
 Vue.component("editor", Editor)
 Vue.component("modal", Modal)
+Vue.component("message-subscriber", MessageSubscriber)
 
 Vue.config.productionTip = false
 Vue.config.debug = true
 
 export default {
 	name: "app",
-	mounted() {
-		// this.api()
-	},
 	computed: {
 		layout(){
 			return this.$route.meta.layout || "default-layout"
 		}
-	},
-	methods: {
-		api(){
-			this.$store.dispatch("fetchProviders")
-			this.$store.dispatch("fetchIntegrations")
-			this.$store.dispatch("fetchSnippets")
-		}
-	},
+	}
 }
 </script>
 

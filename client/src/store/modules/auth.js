@@ -9,8 +9,7 @@ export default {
 	state: {
 		status: false,
 		preloader: true,
-		user: null,
-		provider: null,
+		data: null
 	},
 	getters: {
 		getAuthStatus(state) {
@@ -19,68 +18,74 @@ export default {
 		getAuthPreloader(state) {
 			return state.preloader
 		},
-		getAuthUser(state) {
-			return state.user
-		},
-		getAuthProvider(state) {
-			return state.provider
-		},
+		getAuthData(state) {
+			return state.data
+		}
 	},
 	mutations: {
 		setAuthStatus(state, status) {
 			state.status = status
 		},
-		setAuthPreloader(state, loader) {
-			state.preloader = loader
+		setAuthPreloader(state, preloader) {
+			state.preloader = preloader
 		},
-		setAuthUser(state, user) {
-			state.user = user
-		},
-		setAuthProvider(state, provider) {
-			state.provider = provider
-		},
+		setAuthData(state, data) {
+			state.data = data
+		}
 	},
 	actions: {
 		authActionLogin({ commit }) {
+			if (this.getters.getAuthStatus) {
+				return true
+			}
+
 			const url = `${config.BASE_API_URL}/login`
-			axios.post(url, {
-				withCredentials: true,
-				params: {
-					provider: this.getters.getAuthProvider
-				}
-			})
-			.then(({ data }) => {
-				commit('setAuthPreloader', false)
-				if (data) {
-					commit('setAuthStatus', true)
-					commit('setAuthUser', data)
-				}
-			})
-			.catch((err) => {
-				if (err) {
+
+			axios.post(url)
+				.then(({ data }) => {
 					commit('setAuthPreloader', false)
-					commit('setAuthStatus', false)
-				}
-			})
+					if (data) {
+						commit('setAuthStatus', true)
+						commit('setAuthData', data)
+
+						const { integrations, providers } = data
+						commit('setProviders', providers)
+
+						for (let i = 0; i < integrations.length; i++) {
+							const { id, name, credentials, provider, username, snippets } = integrations[i]
+							commit('addIntegration', { id, name, credentials, provider, username })
+
+							for (let j = 0; j < snippets.length; j++) {
+								const { id, title, status, url, files, created } = snippets[j]
+								commit('addSnippet', { id, title, status, url, files, created, parent: integrations[i].id })
+							}
+						}
+					}
+				})
+				.catch((err) => {
+					if (err) {
+						commit('setAuthPreloader', false)
+						commit('setAuthStatus', false)
+					}
+				})
 		},
 		authActionLogout({ commit }) {
 			const url = `${config.BASE_API_URL}/logout`
-			axios.get(url, {
-				withCredentials: true,
-			})
-			.then(() => {
-				commit('setAuthStatus', false)
-				commit('setAuthUser', null)
 
-				if (router.currentRoute.path !== "/") {
-					router.push("/")
-				}
-			})
-			.catch((err) => {
-				if (err) {
-					throw new Error(err)
-				}
-			})
+			axios.get(url)
+				.then(() => {
+					commit('setAuthStatus', false)
+					commit('setAuthData', null)
+
+					if (router.currentRoute.path !== "/") {
+						router.push("/")
+					}
+				})
+				.catch((err) => {
+					if (err) {
+						throw new Error(err)
+					}
+				})
 		}
-	},
+	}
 }

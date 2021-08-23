@@ -1,35 +1,36 @@
 <template>
-	<button type="button" @click.prevent="handleDownload" class="button download">Download</button>
+	<button type="button" @click.prevent="onDownload" title="Download" class="button is-small is-ghost">
+		<i class="icon-move-down"></i>
+	</button>
 </template>
 
 <script>
-import jsZip from "jszip"
-import fileSaver from "file-saver"
+import Zip 		from "jszip"
+import saver	from "file-saver"
 
 export default {
 	name: "download",
 	props: {
-		files: Array,
-		name: String,
+		files:	Array,
+		name:	String,
 	},
 	methods: {
-		handleDownload(){
-			const zip = jsZip()
+		onDownload(){
+			const zip = Zip()
 
-			this.files.forEach(({ name, code }) => {
-				zip.file(name, code)
+			this.files.forEach(({ filename, content }) => {
+				zip.file(filename, content)
 			})
 
 			zip.generateAsync({ type: "blob" })
-				.then((content) => {
-					const filename = this.name && this.name.trim().toLowerCase().replace(/\s+/g, "-") || "snippet"
-					fileSaver.saveAs(content, `${filename}.zip`)
+				.then(content => {
+					const filename = this.name && this.name.trim().toLowerCase().replace(/\s+/g, "-")
+					saver.saveAs(content, `${filename}.zip`)
 				})
 				.catch(error => {
-					throw new error
+					throw new Error(error)
 				})
 		}
 	}
-
 }
 </script>

@@ -3,10 +3,18 @@
 }
 .snippet {
 	.CodeMirror {
+		font-size: 14px;
 		border: 1px solid #dbdbdb;
 		height: 100%;
+		min-height: 80px;
 	}
 	.CodeMirror-scroll {
 		max-height: 70vh;
+	}
+}
+.snippets-list {
+	.CodeMirror {
+		border-color: #a7a7a7;
+		border-radius: 5px;
 	}
 }

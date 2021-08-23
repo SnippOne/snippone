@@ -21,7 +21,7 @@ export class CreateSnippet extends Events {
 		const { SUCCESS, ERROR } = this.types
 
 		try {
-			const { provider, credential } = await this.integrationRepository.getById(id)
+			const { provider, credentials } = await this.integrationRepository.getById(id)
 
 			/**
 			 * Use a mapping.
@@ -32,7 +32,7 @@ export class CreateSnippet extends Events {
 			/**
 			 * Init integration.
 			 */
-			const prepare = new Load(provider.id, credential)
+			const prepare = new Load(provider.id, credentials)
 			const integration = await prepare.load()
 
 			const { snippet } = await integration.create(mapped)

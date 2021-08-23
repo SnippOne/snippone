@@ -18,14 +18,14 @@ export class UpdateIntegration extends Events {
 		this.snippetRepository = snippetRepository
 	}
 
-	async execute({ id, name, provider, credential }) {
+	async execute({ id, name, provider, credentials }) {
 		const { SUCCESS, ERROR } = this.types
 
 			try {
 				/**
 				 * Init integration.
 				 */
-				const prepare = new Load(provider, credential)
+				const prepare = new Load(provider, credentials)
 				const integration = await prepare.load()
 
 				const { username } = await integration.user()
@@ -41,7 +41,7 @@ export class UpdateIntegration extends Events {
 				 * Save to database.
 				 */
 				const { updatedIds } = await this.snippetRepository.updateMany(mapped)
-				const updated = await this.integrationRepository.updateById({ id, name, username, provider, credential, etag }, updatedIds)
+				const updated = await this.integrationRepository.updateById({ id, name, username, provider, credentials, etag }, updatedIds)
 
 				this.emit(SUCCESS, new Integration(updated))
 

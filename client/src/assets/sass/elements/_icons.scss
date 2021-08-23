@@ -1,0 +1,290 @@
+@mixin icon-base {
+	box-sizing: border-box;
+	position: relative;
+	display: block;
+}
+
+.icon-path-unite {
+	@include icon-base();
+	width: 18px;
+	height: 18px;
+	&::after,
+	&::before {
+		content: "";
+		position: absolute;
+		display: block;
+		box-sizing: border-box;
+		background: $icons_backgrond-color;
+		width: 16px;
+		height: 16px;
+	}
+
+	&::before {
+		background: lighten($icons_backgrond-color, 10%);
+		bottom: -2px;
+		right: 6px;
+	}
+}
+
+.icon-remove {
+	@include icon-base();
+	width: 24px;
+	height: 24px;
+	border: 2px solid transparent;
+	border-radius: 40px;
+	&::after,
+	&::before {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		width: 22px;
+		height: 4px;
+		background: $icons_backgrond-color;
+		transform: rotate(45deg);
+		top: 8px;
+	}
+
+	&::after {
+		transform: rotate(-45deg)
+	}
+}
+
+.icon-profile {
+	&,
+	&::after,
+	&::before {
+		display: block;
+		box-sizing: border-box;
+		border: 2px solid $icons_backgrond-color;
+		border-radius: 100px
+	}
+
+	& {
+		overflow: hidden;
+		width: 18px;
+		height: 18px;
+		position: relative;
+		border-width: 0;
+	}
+
+	&::after,
+	&::before {
+		content: "";
+		background-color: $icons_backgrond-color;
+		position: absolute;
+		top: 2px;
+		left: 6px;
+		width: 6px;
+		height: 6px;
+	}
+
+	&::after {
+		border-radius: 200px;
+		top: 11px;
+		left: 0;
+		width: 18px;
+		height: 18px
+	}
+}
+
+.icon-move-down {
+	@include icon-base();
+	width: 20px;
+	height: 16px;
+	&::after,
+	&::before {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+	}
+
+	&::before {
+		background: $icons_backgrond-color;
+		left: 6px;
+		top: 0;
+		width: 8px;
+		height: 10px;
+	}
+
+	&::after {
+		width: 0;
+		height: 0;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-top: 8px solid $icons_backgrond-color;
+		bottom: -2px;
+	}
+}
+
+.icon-drop-down {
+	@include icon-base();
+	width: 26px;
+	height: 16px;
+
+	&::after {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		width: 0;
+		height: 0;
+		bottom: 0;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-top: 4px solid $icons_backgrond-color;
+	}
+}
+
+.icon-code {
+	@include icon-base();
+	width: 16px;
+	height: 18px;
+	&::after,
+	&::before {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		border: 4px solid $icons_backgrond-color;
+		width: 6px;
+		height: 18px;
+		top: 0;
+	}
+	&::before {
+		border-right: 0;
+		left: 0;
+	}
+	&::after {
+		border-left: 0;
+		right: 0;
+	}
+}
+
+.icon-view {
+	@include icon-base();
+	width: 24px;
+	height: 18px;
+	border-bottom-right-radius: 100px;
+	border-bottom-left-radius: 100px;
+	overflow: hidden;
+	&::after,
+	&::before {
+		content: "";
+		color: $icons_backgrond-color;
+		display: block;
+		border-radius: 100px;
+		position: absolute;
+		box-sizing: border-box
+	}
+	&::after {
+		top: 2px;
+		box-shadow:
+			inset 0 -8px 0 2px,
+			inset 0 0 0 2px;
+		width: 24px;
+		height: 24px
+	}
+	&::before {
+		width: 8px;
+		height: 8px;
+		border: 2px solid transparent;
+		box-shadow:
+			inset 0 0 0 6px,
+			0 0 0 4px,
+			6px 0 0 0,
+			-6px 0 0 0 ;
+		bottom: 4px;
+		left: 8px
+	}
+}
+
+
+.icon-edit {
+	@include icon-base();
+    width: 22px;
+    height: 22px;
+    background-color: $icons_backgrond-color;
+    overflow: hidden;
+    perspective: 10px;
+	border-radius: 1px;
+	&::after,
+	&::before {
+		content: "";
+		color: lighten($icons_backgrond-color, 25%);
+		display: block;
+		position: absolute;
+		box-sizing: border-box
+	}
+	&::before {
+		width: 0;
+		height: 6px;
+		border-bottom: 6px solid;
+		border-left: 3px solid transparent;
+		border-right: 3px solid transparent;
+		bottom: 11px;
+		left: 8px;
+	}
+	&::after {
+		width: 10px;
+		height: 12px;
+		border: 1px solid;
+		border-top: 4px solid;
+		border-bottom: 0;
+		bottom: 2px;
+		left: 6px;
+		transform: rotateX(60deg);
+	}
+}
+
+.icon-close {
+	box-sizing: border-box;
+	position: relative;
+	display: block;
+	width: 22px;
+	height: 22px;
+	border: 2px solid transparent;
+	border-radius: 40px;
+	&::after,
+	&::before {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		width: 16px;
+		height: 2px;
+		background: $icons_backgrond-color;
+		transform: rotate(45deg);
+		border-radius: 5px;
+		top: 8px;
+		left: 1px
+	}
+	&::after {
+		transform: rotate(-45deg)
+	}
+}
+
+.icon-down {
+	box-sizing: border-box;
+	position: relative;
+	display: block;
+	width: 22px;
+	height: 22px;
+	border: 2px solid transparent;
+	border-radius: 100px;
+	&::after {
+		content: "";
+		display: block;
+		box-sizing: border-box;
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		border-bottom: 2px solid $icons_backgrond-color;
+		border-right: 2px solid $icons_backgrond-color;
+		transform: rotate(45deg);
+		left: 4px;
+		top: 2px
+	}
+}
+
