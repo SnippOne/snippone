@@ -57,16 +57,6 @@ export default {
 			options: editorConfig.context('options.preview', { mode: this.source.type })
 		}
 	},
-	created() {
-		const mode = this.source.mode.toLowerCase()
-
-		import(`codemirror/mode/${mode}/${mode}`)
-			.then((data) => {
-				this.$refs.preview.codemirror.setOption("mode", mode)
-				console.log(data)
-			})
-			.catch((error) => console.log(error))
-	},
 	computed: {
 		name() {
 			return this.source.filename;

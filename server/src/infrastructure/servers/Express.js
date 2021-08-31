@@ -23,7 +23,7 @@ import { Routes } from '../../interfaces/routes.js'
 import { ErrorController } from '../../interfaces/ErrorController.js'
 
 // Health
-import { gracefulShutdown } from '../health/GracefulShutdown.js'
+import { createTerminus } from '@godaddy/terminus'
 
 export class Express extends FrameworkInterface {
 	constructor(dependencies) {
@@ -52,14 +52,14 @@ export class Express extends FrameworkInterface {
 
 		// Session
 		app.use(session({
-			name: config.cookieSession.name,
-			secret: config.cookieSession.secretKey,
+			name: 		config.cookieSession.name,
+			secret: 	config.cookieSession.secretKey,
 			cookie: {
 				originalMaxAge: Number(config.cookieSession.maxAge)
 			},
-			resave: true,
-			saveUninitialized: true,
-			store: this.sessionStore
+			resave: 			true,
+			saveUninitialized: 	true,
+			store: 				this.sessionStore
 		}))
 
 
@@ -80,8 +80,14 @@ export class Express extends FrameworkInterface {
 		app.use('*', errorsNoRouteHandler)
 		app.use(errorsHandler)
 
-		// Shutdown
-		// gracefulShutdown(app)
+		// Terminus
+		createTerminus(app, { 
+			signals: ['SIGINT', 'SIGNTERM'],
+			async onSignal(){
+				await app.close()
+				process.exit()
+			}
+		})
 
 		app.listen(config.port)
 	}

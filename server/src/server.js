@@ -33,6 +33,14 @@ try {
 
 	await app.start()
 
+	async function closeGracefully() {
+		await app.close()
+		process.exit()
+	}
+
+	process.on('SIGINT', closeGracefully)
+	process.on('SIGTERM', closeGracefully)
+
 	debug('Server is started.')
 
 } catch (error) {

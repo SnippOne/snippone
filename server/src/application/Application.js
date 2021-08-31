@@ -15,4 +15,8 @@ export class Application {
 
 		await this.server.start()
 	}
+
+	async close(){
+		await this.server.close()
+	}
 }

@@ -1,0 +1,11 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    margin: 2rem auto 4rem;
+    .icon-spinner {
+        transform: scale(2);
+        &::after {
+            border: 0;
+        }
+    }
+}

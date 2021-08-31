@@ -7,29 +7,32 @@
 </template>
 
 <script>
+// Vue
 import Vue from "vue"
-import VueSelect from "vue-select"
+
+// Plugins
+import Vuelidate 		from "vuelidate"
+import VueScrollTo 		from "vue-scrollto"
+import VueClipboard 	from "vue-clipboard2"
+
+// Layouts
+import defaultLayout 	from "@/layouts/default.vue"
+import homeLayout 		from "@/layouts/home.vue"
+import rawLayout 		from "@/layouts/raw.vue"
+
+// Components
+import Editor 				from "@/components/Editor.vue"
+import Modal 				from "@/components/modals/Modal.vue"
+import MessageSubscriber 	from "@/components/messages/MessageSubscriber.vue"
+
+import VueSelect 			from "vue-select"
+
+// Styles
 import "vue-select/dist/vue-select.css"
 
-import VueScrollTo from 'vue-scrollto'
-import Vuelidate from 'vuelidate'
-import VueClipboard from 'vue-clipboard2'
-import BounceLoader from 'vue-spinner/src/BounceLoader'
-
-import defaultLayout from "@/layouts/default.vue"
-import homeLayout from "@/layouts/home.vue"
-import rawLayout from "@/layouts/raw.vue"
-
-import Editor from "@/components/Editor.vue"
-import Modal from "@/components/modals/Modal.vue"
-
-import MessageSubscriber from "@/components/messages/MessageSubscriber.vue"
-
-Vue.use(VueScrollTo)
 Vue.use(Vuelidate)
+Vue.use(VueScrollTo)
 Vue.use(VueClipboard)
-
-Vue.component("bounce-loader", BounceLoader)
 
 Vue.component("default-layout", defaultLayout)
 Vue.component("home-layout", homeLayout)

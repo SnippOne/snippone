@@ -51,9 +51,15 @@ export default {
 						const { integrations, providers } = data
 						commit('setProviders', providers)
 
+						if(!integrations.length) {
+							return false
+						}
+
 						for (let i = 0; i < integrations.length; i++) {
 							const { id, name, credentials, provider, username, snippets } = integrations[i]
 							commit('addIntegration', { id, name, credentials, provider, username })
+
+							if(!snippets.length) continue;
 
 							for (let j = 0; j < snippets.length; j++) {
 								const { id, title, status, url, files, created } = snippets[j]

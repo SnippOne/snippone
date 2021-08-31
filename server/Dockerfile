@@ -11,5 +11,7 @@ RUN npm install
 
 EXPOSE 3000
 
+USER node
+
 ENTRYPOINT npm run start
 

@@ -62,7 +62,7 @@
 						<div class="level">
 							<div class="level-left">
 								<div class="level-item">
-									<a href="#" class="button is-text" @click.prevent="removeIntegration">
+									<a href="#" class="button is-text" @click.prevent="events.onRemove">
 										<span>Remove</span>
 									</a>
 								</div>
@@ -78,15 +78,14 @@
 
 								<div v-if="payload.creating" class="level-item">
 									<div class="control ml-1">
-										<button class="button is-dark" @click.prevent="saveIntegration" type="submit" name="create">Create</button>
+										<button class="button is-dark" @click.prevent="events.onCreate" type="submit" name="create">Create</button>
 									</div>
 								</div>
 								<div v-else class="level-item">
 									<div class="control ml-1">
-										<button class="button is-dark"  @click.prevent="updateIntegration" type="submit" name="update">Update</button>
+										<button class="button is-dark"  @click.prevent="events.onUpdate" type="submit" name="update">Update</button>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -98,7 +97,6 @@
 
 <script>
 // Core
-
 import { required, minLength } from 'vuelidate/lib/validators'
 
 // Config
@@ -107,6 +105,7 @@ import config from "@/config/integration"
 export default {
 	name: "integration",
 	props: {
+		events: Object,
 		data: Object
 	},
 	mounted(){
@@ -128,26 +127,6 @@ export default {
 			provider: {
 				required
 			}
-		}
-	},
-	methods: {
-		checkIntegration(){
-			this.$store.dispatch("checkIntegration", 	this.payload)
-		},
-		saveIntegration(){
-			this.$store.dispatch("saveIntegration", 	this.payload)
-		},
-		updateIntegration(){
-			this.$store.dispatch("updateIntegration", 	this.payload)
-		},
-		removeIntegration() {
-			console.log(config.context('add'))
-			this.$root.$emit("openModal", config.context('modal.remove'), () => {
-				this.$store.dispatch("removeIntegration", this.payload)
-				this.$root.$emit("appendMessage", {
-					message: `The integration ${ this.payload.name ? `with the name "${this.payload.name}"` : '' } was deleted.`
-				})
-			})
 		}
 	}
 }

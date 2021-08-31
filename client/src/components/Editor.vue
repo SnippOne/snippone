@@ -5,7 +5,7 @@
 				<div class="column is-1">
 					<p class="has-text-right">File</p>
 				</div>
-				<div class="column">
+				<div class="column is-11">
 					<div class="editor-content">
 						<div class="columns">
 							<div class="column is-9">
@@ -36,7 +36,7 @@
 							</div>
 						</div>
 						<div class="columns">
-							<div class="column">
+							<div class="column contain">
 								<codemirror ref="editor" v-model="editor.content" :options="options" />
 							</div>
 						</div>
@@ -61,11 +61,8 @@
 
 <script>
 // Codemirror
-import { CodeMirror, codemirror } from "vue-codemirror"
-// import "codemirror/mode/meta"
-// import "codemirror/mode/javascript/javascript"
-// import "codemirror/mode/css/css"
-// import "codemirror/mode/jsx/jsx"
+import { CodeMirror, codemirror  } from "vue-codemirror"
+import "codemirror/mode/meta"
 
 // Codemirror Styles
 import "codemirror/lib/codemirror.css"
@@ -87,23 +84,22 @@ export default {
 			options: editorConfig.context('options.edit')
 		}
 	},
-	async created() {
+	created() {
 		if (this.source) {
 			this.editor = this.source
-			if (this.source.mode) {
-				const mode = this.source.mode.toLowerCase()
-				import(`codemirror/mode/${mode}/${mode}`)
-					.then((data) => {
-						this.$refs.editor.codemirror.setOption("mode", mode)
-						console.log(data)
-					})
-					.catch((error) => console.log(error))
-			}
 		}
-		CodeMirror.modeInfo.forEach(({ name, mime }) => {
-			this.modes.push({ name,	mime })
-		})
-		// this.$nextTick(() => this.$el.scrollIntoView())
+
+		if (this.source.mode) {
+			const mode = this.source.mode.toLowerCase()
+			
+			import(`codemirror/mode/${mode}/${mode}`)
+				.then(() => this.$refs.editor.codemirror.setOption("mode", mode))
+				.catch((error) => { throw new Error(error) })
+		}
+
+		if (CodeMirror.modeInfo) {
+			this.modes = CodeMirror.modeInfo
+		}
 	},
 	updated() {
 		this.$store.dispatch("updateFile", this.editor)

@@ -2,11 +2,11 @@
 import Vue from "vue"
 import Router from "vue-router"
 
-Vue.use(Router)
-
 // Pages
 import Home from "@/pages/Home.vue"
 import SnippetsList from "@/pages/SnippetsList.vue"
+
+Vue.use(Router)
 
 export default new Router({
 	mode: "history",

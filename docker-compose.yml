@@ -4,7 +4,8 @@ volumes:
   mongodb_data:
 
 services:
-  reverse-proxy:
+  nginx-proxy:
+    container_name: nginx-proxy-default
     build:
       context: ./proxy
     restart: always
@@ -16,6 +17,7 @@ services:
       - express-server
 
   vue-client:
+    container_name: vue-client-default
     build:
       context: ./client
     volumes:
@@ -25,6 +27,7 @@ services:
       - express-server
 
   express-server:
+    container_name: express-server-default
     build:
       context: ./server
     restart: on-failure
@@ -37,8 +40,9 @@ services:
       - mongo-database
 
   mongo-database:
+    container_name: mongo-database-default
     image: mongo
     ports:
-      - 27027:27017
+      - 27017:27017
     volumes:
       - mongodb_data:/data/db

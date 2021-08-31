@@ -2,7 +2,11 @@
 <div class="container">
 	<div class="snippets-list">
 		<h1>Snippets</h1>
-		<div class="snippet" v-for="({ id, title, status, files, parent }) in $store.getters.getSnippets" :key="id">
+
+		<div v-if="loading" class="loading">
+			<span class="icon-spinner text-center"></span>
+		</div>
+		<div v-else class="snippet" v-for="({ id, title, status, files, parent }) in snippets" :key="id">
 			<div class="top-panel">
 				<div class="head">
 					<router-link class="title is-6" :to="`/snippets/${id}`">{{ title }}</router-link>
@@ -22,7 +26,7 @@
 					</span>
 					<span class="control">
 						<router-link class="button is-small is-ghost" title="Edit" :to="`/snippets/${id}`">
-							<i class="icon-edit"></i>
+							<i class="icon-code"></i>
 						</router-link>
 					</span>
 				</div>
@@ -52,21 +56,31 @@
 </template>
 
 <script>
-import config from "@/config/snippet"
+import config 		from "@/config/snippet"
 
-import Snippet from "@/components/Snippet.vue"
-import Timer from "@/components/libs/Timer.vue"
-import Download from "@/components/libs/Download.vue"
-import Preview from "@/components/files/Preview.vue"
+import Snippet 		from "@/components/Snippet.vue"
+import Timer 		from "@/components/libs/Timer.vue"
+import Download 	from "@/components/libs/Download.vue"
+import Preview 		from "@/components/files/Preview.vue"
 
 export default {
 	name: "snippets",
 	data() {
 		return {
-			isVisibleSnippet: false
+			snippets: 			[],
+			loading: 			true,
+			isVisibleSnippet: 	false
 		}
 	},
 	mounted(){
+		this.$nextTick(() => {
+			this.loading = true
+			setTimeout(() => {
+				this.snippets = this.$store.getters.getSnippets
+				this.loading = false
+			})
+		})
+		
 		if (!this.$store.getters.getSnippets.length) {
 			this.isVisibleSnippet = true
 		}

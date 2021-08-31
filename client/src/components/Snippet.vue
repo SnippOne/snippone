@@ -54,7 +54,7 @@
 			</div>
 
 			<div class="columns">
-				<div class="column loading">
+				<div class="column contain" v-if="$store.getters.getFiles.length">
 					<editor v-for="file of $store.getters.getFiles" :key="file && file.filename" :source="file" />
 				</div>
 			</div>
@@ -87,7 +87,6 @@
 				</div>
 			</div>
 		</form>
-		<bounce-loader color="#3273dc" :loading="loading" />
 	</div>
 </template>
 
@@ -100,7 +99,6 @@ import { required, minLength } from 'vuelidate/lib/validators'
 import modalConfig		from "@/config/modal"
 import snippetConfig	from "@/config/snippet"
 import fileConfig		from "@/config/file"
-
 
 export default {
 	name: "snippet",

@@ -1,6 +1,7 @@
 
 const types = {
-	SIGTERM: 'SIGTERM'
+	SIGINT:		'SIGINT',
+	SIGTERM:	'SIGTERM'
 }
 
 const Signal = (type, handler) => {
