@@ -7,6 +7,7 @@ import compression 		from 'compression'
 import passport 		from 'passport'
 import session 			from 'express-session'
 import cookieParser 	from 'cookie-parser'
+import http2			from 'http2'
 
 // Swagger
 import swaggerJSdoc 	from 'swagger-jsdoc'
@@ -62,7 +63,6 @@ export class Express extends FrameworkInterface {
 			store: 				this.sessionStore
 		}))
 
-
 		// Passport
 		app.use(passport.initialize())
 		app.use(passport.session())
@@ -89,6 +89,9 @@ export class Express extends FrameworkInterface {
 			}
 		})
 
+		// const server = http2.createSecureServer({}, app)
+		// server.listen(config.port)
+		
 		app.listen(config.port)
 	}
 }

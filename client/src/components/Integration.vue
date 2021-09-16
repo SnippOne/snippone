@@ -62,7 +62,7 @@
 						<div class="level">
 							<div class="level-left">
 								<div class="level-item">
-									<a href="#" class="button is-text" @click.prevent="events.onRemove">
+									<a href="#" class="button is-text" @click.prevent="events.onRemove(payload)">
 										<span>Remove</span>
 									</a>
 								</div>
@@ -78,12 +78,12 @@
 
 								<div v-if="payload.creating" class="level-item">
 									<div class="control ml-1">
-										<button class="button is-dark" @click.prevent="events.onCreate" type="submit" name="create">Create</button>
+										<button class="button is-dark" @click.prevent="events.onCreate(payload)" type="submit" name="create">Create</button>
 									</div>
 								</div>
 								<div v-else class="level-item">
 									<div class="control ml-1">
-										<button class="button is-dark"  @click.prevent="events.onUpdate" type="submit" name="update">Update</button>
+										<button class="button is-dark"  @click.prevent="events.onUpdate(payload)" type="submit" name="update">Update</button>
 									</div>
 								</div>
 							</div>
@@ -109,7 +109,7 @@ export default {
 		data: Object
 	},
 	mounted(){
-		// this.$nextTick(() => this.$el.scrollIntoView())
+		this.open = !(this.payload.id && this.payload.name)
 	},
 	data() {
 		return {

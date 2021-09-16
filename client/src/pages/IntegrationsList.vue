@@ -48,8 +48,11 @@ export default {
 		onRemove(payload){
 			this.$root.$emit("openModal", config.context('modal.remove'), () => {
 				const removeIndex = this.integrations.findIndex(({ id }) => id === payload.id)
-					removeIndex ? this.integrations.splice(removeIndex, 1) 
-								: this.$store.dispatch("removeIntegration", payload)
+				if (removeIndex !== -1) {
+					this.integrations.splice(removeIndex, 1)
+				} else {
+					this.$store.dispatch("removeIntegration", payload)
+				}
 		
 				const message = `The integration ${ payload.name ? `with the name "${payload.name}"` : '' } was deleted.`
 				this.$root.$emit("appendMessage", { message })

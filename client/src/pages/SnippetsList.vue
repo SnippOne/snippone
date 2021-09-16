@@ -17,12 +17,12 @@
 				</div>
 				<div class="actions">
 					<span class="control">
-						<button class="button is-small is-ghost" title="Remove" @click="onRemoveSnippet(id, title)">
+						<button class="button is-small is-ghost" title="Remove" @click="onRemove(id, title)">
 							<i class="icon-remove"></i>
 						</button>
 					</span>
 					<span class="control">
-						<download :files="files" :name="title" />
+						<download :id="id" />
 					</span>
 					<span class="control">
 						<router-link class="button is-small is-ghost" title="Edit" :to="`/snippets/${id}`">
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div class="mgt-medium has-text-centered">
-		<a v-scroll-to="'#create-snippet'" class="button is-medium" @click.prevent="onAddSnippet">+ Add Snippet</a>
+		<a v-scroll-to="'#create-snippet'" class="button is-medium" @click.prevent="onAdd">+ Add Snippet</a>
 	</div>
 	<div v-if="isVisibleSnippet">
 		<snippet/>
@@ -91,15 +91,15 @@ export default {
 
 			return { username, name }
 		},
-		onAddSnippet(){
+		onAdd(){
 			this.isVisibleSnippet = !this.isVisibleSnippet
 		},
-		onRemoveSnippet(id, title){
+		onRemove(id, title){
 			this.$root.$emit("openModal", config.context('modal.remove'), () => {
 				this.$store.dispatch("removeSnippet", id)
-				this.$root.$emit("appendMessage", {
-					message: `The snippet ${ title ? `with the name "${title}"` : '' } was deleted.`
-				})
+
+				const message = `The snippet ${ title ? `with the name "${title}"` : '' } was deleted.`
+				this.$root.$emit("appendMessage", { message })
 			})
 		}
 	},

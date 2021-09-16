@@ -1,5 +1,6 @@
 // Core
 import axios from 'axios'
+import fileDownload from 'js-file-download'
 
 // Config
 import { config } from "@/config"
@@ -78,5 +79,20 @@ export default {
 					}
 				})
 		},
+		downloadSnippet(actions, id){
+			const url = `${config.BASE_API_URL}/snippet/download/${id}`
+			axios.get(url, {
+					responseType: 'blob'
+				})
+				.then(({ data, headers }) => {
+					const filename = headers['content-disposition'].split('filename=')[1]
+					fileDownload(data, filename)
+				})
+				.catch((err) => {
+					if (err) {
+						throw new Error(err)
+					}
+				})
+		}
 	}
 }

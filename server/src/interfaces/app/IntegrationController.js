@@ -1,6 +1,6 @@
 // Core
-import status from 'http-status'
-import dg from 'debug'
+import status 	from 'http-status'
+import dg		from 'debug'
 
 // Use Cases
 import { GetIntegration } 		from '../../application/useCases/integration/GetIntegration.js'

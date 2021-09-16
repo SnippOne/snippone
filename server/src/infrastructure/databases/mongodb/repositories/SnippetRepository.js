@@ -16,7 +16,7 @@ export class SnippetRepository extends SnippetRepositoryInterface {
 		return data
 	}
 
-	 async getMany(ids = []){
+	async getMany(ids = []){
 
 		const data = await Snippet.find({ id: { $in: ids } })
 

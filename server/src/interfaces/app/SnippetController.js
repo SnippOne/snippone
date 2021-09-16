@@ -1,11 +1,14 @@
 // Core
 import statuses from 'http-status'
+import stream from 'stream'
+import util from 'util'
 
 // Usecases
 import { GetSnippet }		from '../../application/useCases/snippet/GetSnippet.js'
 import { CreateSnippet }	from '../../application/useCases/snippet/CreateSnippet.js'
 import { UpdateSnippet }	from '../../application/useCases/snippet/UpdateSnippet.js'
 import { DeleteSnippet }	from '../../application/useCases/snippet/DeleteSnippet.js'
+import { DownloadSnippet }	from '../../application/useCases/snippet/DownloadSnippet.js'
 
 export const SnippetController = (dependencies) => ({
 
@@ -49,7 +52,6 @@ export const SnippetController = (dependencies) => ({
 	},
 
 	deleteSnippet(req, res, next) {
-
 		const { id, integration } = req.body
 
 		const snippet = new DeleteSnippet(dependencies)
@@ -60,5 +62,30 @@ export const SnippetController = (dependencies) => ({
 		snippet.on(ERROR, next)
 
 		snippet.execute(id, integration)
+	},
+
+	async downloadSnippet(req, res, next) {
+		const  { id } = req.params
+
+		const download = new DownloadSnippet(dependencies)
+
+		const { SUCCESS, ERROR } = download.types
+
+		const pipeline = util.promisify(stream.pipeline)
+
+		download.on(SUCCESS, async (name, { zip }) => {
+			res.setHeader('Content-Disposition', `attachment; filename=${name}.zip`)
+
+			// zip.pipe(res)
+			try {
+				await pipeline(zip, res)
+			} catch (error) {
+				throw new Error(error)
+			}
+		})
+
+		download.on(ERROR, next)
+
+		await download.execute(id)
 	}
 })

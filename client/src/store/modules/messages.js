@@ -22,6 +22,7 @@ export default {
 	actions: {
 		addMessage({ commit }, message) {
 			commit("addMessage", message)
+			setTimeout(() => commit("removeMessage", message.id), 30000)
 		},
 		removeMessage({ commit }, id) {
 			commit("removeMessage", id)

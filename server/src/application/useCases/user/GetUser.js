@@ -18,7 +18,6 @@ export class GetUser extends Events {
 
 			if (data) {
 				const receivedUser = new User(data)
-                console.log("🚀 ~ file: GetUser.js ~ line 21 ~ GetUser ~ execute ~ receivedUser", JSON.stringify(receivedUser, null,2))
 
 				this.emit(SUCCESS, { ...receivedUser, providers })
 

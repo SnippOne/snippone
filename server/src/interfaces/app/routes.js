@@ -2,14 +2,14 @@
 import { Router } from 'express'
 
 // Controllers
-import { ValidatorController } from '../ValidatorController.js'
-import { AuthController } from '../AuthController.js'
-import { IntegrationController } from './IntegrationController.js'
-import { SnippetController } from './SnippetController.js'
+import { ValidatorController } 		from '../ValidatorController.js'
+import { AuthController } 			from '../AuthController.js'
+import { IntegrationController } 	from './IntegrationController.js'
+import { SnippetController } 		from './SnippetController.js'
 
 // Validation
-import { integration } from '../../infrastructure/validation/integration.js'
-import { snippet } from '../../infrastructure/validation/snippet.js'
+import { integration } 	from '../../infrastructure/validation/integration.js'
+import { snippet } 		from '../../infrastructure/validation/snippet.js'
 
 export const AppRoutes = (repositories) => {
 	const router = Router({ mergeParams: true })
@@ -28,7 +28,8 @@ export const AppRoutes = (repositories) => {
 		getSnippet,
 		createSnippet,
 		updateSnippet,
-		deleteSnippet
+		deleteSnippet,
+		downloadSnippet
 	} = SnippetController(repositories)
 
 	const { isValidate } = ValidatorController()
@@ -59,6 +60,9 @@ export const AppRoutes = (repositories) => {
 		.post(	[ isAuth, isValidate(snippet) ], createSnippet)
 		.put(	[ isAuth, isValidate(snippet) ], updateSnippet)
 		.delete([ isAuth ], deleteSnippet)
+
+	router.route('/snippet/download/:id')
+		.get([ isAuth ], downloadSnippet)
 
 	return router
 }

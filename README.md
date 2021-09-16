@@ -8,4 +8,4 @@
 
 ### Application using Docker containers.
 
-#### To start, run the ".start" file (--dev use flag for development mode).
+To start, run the "start" file (--dev use flag for development mode).

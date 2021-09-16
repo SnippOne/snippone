@@ -6,11 +6,8 @@ export default {
 	name: "message-subscriber",
 	created() {
 		this.$root.$on("appendMessage", ({ message, type } = { type: 'default' }) => {
-			this.$store.dispatch("addMessage", {
-				id: hash({ length: 10 }),
-				message,
-				type
-			})
+			const id =  hash({ length: 10 })
+			this.$store.dispatch("addMessage", { id, message, type })
 		})
 	},
 	destroyed() {
